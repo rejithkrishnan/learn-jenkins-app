@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:18-alpine'
-            args '-v jenkins-npm-cache:/root/.npm'
+             args '-v jenkins-npm-cache:/root/.npm -v ${WORKSPACE}/node_modules:/app/node_modules'
             reuseNode true
         }
     }
