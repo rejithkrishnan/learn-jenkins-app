@@ -1,14 +1,14 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18-alpine'
+            args '-v jenkins-npm-cache:/root/.npm'
+            reuseNode true
+        }
+    }
 
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             steps {
                 sh '''
                 echo 'Building the application...'
@@ -21,12 +21,6 @@ pipeline {
             }
         }
         stage('Test') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             steps {
                 sh '''
                 echo 'Running the tests...'
