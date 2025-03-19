@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:18-alpine'
-             args '-v jenkins-npm-cache:/root/.npm -v ${WORKSPACE}/node_modules:/app/node_modules'
+            args '-v jenkins-npm-cache:/root/.npm -v $WORKSPACE/node_modules:/app/node_modules'
             reuseNode true
         }
     }
@@ -24,6 +24,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Running the tests...'
+                test -f build/index.html
                 npm run test
                 '''
             }
